@@ -1,37 +1,44 @@
+// user.model.ts
 import mongoose, { Schema, Document, model } from 'mongoose';
 import bcrypt from 'bcrypt';
-import config from "../../config";
 
-const UserSchema: Schema = new Schema(
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  emergencyContact?: string;
+  bloodGroup?: string;
+  comparePassword(candidatePassword: string): Promise<boolean>; // Add this
+}
+
+const UserSchema: Schema<IUser> = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "admin"], default: "user" },
+    emergencyContact: { type: String },
+    bloodGroup: { type: String },
   },
   {
     timestamps: true,
   }
 );
 
-// Password hashing before saving
-UserSchema.pre('save', async function (next) {
+// ✅ Pre-save password hashing
+UserSchema.pre<IUser>('save', async function (next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
 
-// Static method to check if the email already exists
-UserSchema.statics.isUserExistsByEmail = async function (email: string) {
-  return await this.findOne({ email }); // 'this' refers to the User model
+// ✅ Instance method to compare password
+UserSchema.methods.comparePassword = async function (candidatePassword: string) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Static method to compare plain password with hashed password
-UserSchema.statics.isPasswordMatched = async function (plainPassword: string, hashedPassword: string) {
-  return await bcrypt.compare(plainPassword, hashedPassword);
-};
-
-const User = model("User", UserSchema);
+const User = model<IUser>('User', UserSchema);
 
 export default User;
