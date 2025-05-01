@@ -8,9 +8,7 @@ import verifyFemale from "../../utils/verifyFemale";
 export const register = catchAsync(async (req: Request, res: Response) => {
   const { name, email, password, emergencyContact, bloodGroup } = req.body;
 
-  // Check if the user female or not
-
-  const imagePath = req.file?.path; // Assume image is sent with field name 'image'
+  const imagePath = req.file?.path;
 
   let isWoman = false;
   if (imagePath) {
