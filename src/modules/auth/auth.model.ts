@@ -1,11 +1,12 @@
 // auth.model.ts
-import mongoose, { Schema, Document } from 'mongoose';
-import bcrypt from 'bcryptjs';
+import mongoose, { Schema, Document } from "mongoose";
+import bcrypt from "bcryptjs";
 
 interface IUserDocument extends Document {
   name: string;
   email: string;
   password: string;
+  image: string;
   emergencyContact: string;
   bloodGroup: string;
   isDeleted: boolean;
@@ -24,6 +25,10 @@ const userSchema: Schema<IUserDocument> = new Schema(
       unique: true,
     },
     password: {
+      type: String,
+      required: true,
+    },
+    image: {
       type: String,
       required: true,
     },
@@ -51,12 +56,12 @@ userSchema.methods.comparePassword = async function (password: string) {
 };
 
 // Pre-save hook to hash password before saving
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
-const User = mongoose.model<IUserDocument>('User', userSchema);
+const User = mongoose.model<IUserDocument>("User", userSchema);
 
 export default User;

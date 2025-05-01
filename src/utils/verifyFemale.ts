@@ -6,12 +6,12 @@ import config from "../config";
 const FACE_API_KEY = config.faceAPIKey;
 const FACE_API_SECRET = config.faceAPISecret;
 
-const verifyFemale = async (imagePath: string): Promise<boolean> => {
+const verifyFemale = async (imageBuffer: Buffer): Promise<boolean> => {
   try {
     const formData = new FormData();
     formData.append("api_key", FACE_API_KEY);
     formData.append("api_secret", FACE_API_SECRET);
-    formData.append("image_file", fs.createReadStream(imagePath));
+    formData.append("image_file", imageBuffer, { filename: "image.jpg" });
     formData.append("return_attributes", "gender");
 
     console.log("Sending request to Face++ API...");

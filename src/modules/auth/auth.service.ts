@@ -6,7 +6,10 @@ import { IUser } from "./auth.interface";
 const JWT_SECRET = process.env.JWT_SECRET || "secret_key"; // Ensure this is set in your environment variables
 
 export const registerUser = async (userData: IUser) => {
-  const { name, email, password, emergencyContact, bloodGroup } = userData;
+  const { name, email, password, emergencyContact, bloodGroup, image } =
+    userData;
+
+  console.log("User Data:", image);
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -18,6 +21,7 @@ export const registerUser = async (userData: IUser) => {
     email,
     password,
     emergencyContact,
+    image,
     bloodGroup,
     isDeleted: false, // Default is false
   });
