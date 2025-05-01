@@ -11,6 +11,5 @@ router.put("/post/:id", CommunityController.updatePost);
 // router.get("/post/:id/comments", CommunityController.getComments);
 // router.get("/post/:id/comment/:commentId", CommunityController.getSingleComment);
 
-
 // router.post("/post/:id/like", CommunityController.toggleLike);
 export const CommunityRoutes = router;

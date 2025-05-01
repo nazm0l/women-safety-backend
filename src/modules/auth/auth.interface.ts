@@ -9,9 +9,7 @@ export interface IUser {
   isDeleted?: boolean;
 }
 
-  
-  export interface IAuthResponse {
-    user: IUser;
-    token: string;
-  }
-  
+export interface IAuthResponse {
+  user: IUser;
+  token: string;
+}
