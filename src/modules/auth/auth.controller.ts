@@ -1,7 +1,7 @@
 // auth.controller.ts
 import { Request, Response } from "express";
 import { v2 as cloudinary } from "cloudinary";
-import { registerUser, loginUser } from "./auth.service";
+import { registerUser, loginUser, updateUserDB } from "./auth.service";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse, { sendResponseLogin } from "../../utils/sendResponse";
 import verifyFemale from "../../utils/verifyFemale";
@@ -94,6 +94,19 @@ export const login = catchAsync(async (req: Request, res: Response) => {
     success: true,
     message: "Login successful",
     token,
+    data: user,
+  });
+});
+
+export const updateUser = catchAsync(async (req: Request, res: Response) => {
+  const { name, emergencyContact, userId } = req.body;
+
+  const user = await updateUserDB(name, emergencyContact, userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "User updated successfully",
     data: user,
   });
 });

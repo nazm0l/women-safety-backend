@@ -38,11 +38,6 @@ export const getPostById = catchAsync(
   }
 );
 
-// export const updatePost = async (req: Request, res: Response) => {
-//   const updated = await CommunityService.updatePost(req.params.id, req.body);
-//   res.status(200).json(updated);
-// };
-
 export const updatePost = catchAsync(async (req, res) => {
   const postId = req.params.id;
   const { title, content } = req.body;
@@ -58,41 +53,3 @@ export const updatePost = catchAsync(async (req, res) => {
     data: updatedPost,
   });
 });
-
-// export const addComment = async (req: Request, res: Response) => {
-//   const { text, userId } = req.body;
-
-//   const comment = await CommunityService.addComment(
-//     req.params.id,
-//     text,
-//     userId
-//   );
-
-//   res.status(200).json({
-//     success: true,
-//     message: "Comment added!",
-//     data: comment,
-//   });
-// };
-
-// export const getComments = async (req: Request, res: Response) => {
-//   const comments = await CommunityService.getComments(req.params.id);
-//   res.status(200).json(comments);
-// };
-
-// export const getSingleComment = async (req: Request, res: Response) => {
-//   const comment = await CommunityService.getSingleComment(req.params.id, req.params.id);
-//   res.status(200).json(comment);
-// };
-
-// export const toggleLike = async (req: Request, res: Response) => {
-//   const { userId } = req.body;
-
-//   const result = await CommunityService.toggleLike(req.params.id, userId);
-
-//   res.status(200).json({
-//     message: "Like status updated",
-//     likedBy: result.likedBy,
-//     totalLikes: result.likedBy.length,
-//   });
-// };

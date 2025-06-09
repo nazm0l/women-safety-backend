@@ -10,13 +10,19 @@ const addComment = async (postId: string, comment: IComment) => {
 };
 
 const getComments = async (postId: string) => {
-  const post = await Post.findById(postId).populate("comments.commentedBy", "name email");
+  const post = await Post.findById(postId).populate(
+    "comments.commentedBy",
+    "name email image"
+  );
   return post?.comments;
 };
 
 const getSingleComment = async (postId: string, commentId: string) => {
-  const post = await Post.findById(postId).populate("comments.commentedBy", "name email");
-  const comment = post?.comments.find(c => c._id?.toString() === commentId);
+  const post = await Post.findById(postId).populate(
+    "comments.commentedBy",
+    "name email"
+  );
+  const comment = post?.comments.find((c) => c._id?.toString() === commentId);
   return comment;
 };
 
