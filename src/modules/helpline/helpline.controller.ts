@@ -5,9 +5,17 @@ import { HelplineService } from "./helpline.service";
 
 // Create a new helpline/resource
 const addHelpline = catchAsync(async (req, res) => {
-  const { title, description, location, createdBy } = req.body;
+  const { title, description, contactNumber, category, location, createdBy } =
+    req.body;
 
-  const helpline = await HelplineService.addHelpline(title, description, location, createdBy);
+  const helpline = await HelplineService.addHelpline(
+    title,
+    description,
+    contactNumber,
+    category,
+    location,
+    createdBy
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -57,7 +65,12 @@ const updateHelpline = catchAsync(async (req, res) => {
   const { id } = req.params;
   const { title, description, location } = req.body;
 
-  const updatedHelpline = await HelplineService.updateHelpline(id, title, description, location);
+  const updatedHelpline = await HelplineService.updateHelpline(
+    id,
+    title,
+    description,
+    location
+  );
 
   if (!updatedHelpline) {
     sendResponse(res, {

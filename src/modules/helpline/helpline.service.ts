@@ -4,8 +4,22 @@ import HelplineModel from "./helpline.model";
 /**
  * Add a new helpline/resource
  */
-const addHelpline = async (title: string, description: string, location: object, createdBy: string): Promise<THelpline> => {
-  const helpline = await HelplineModel.create({ title, description, location, createdBy });
+const addHelpline = async (
+  title: string,
+  description: string,
+  contactNumber: string,
+  category: string,
+  location: object,
+  createdBy: string
+): Promise<THelpline> => {
+  const helpline = await HelplineModel.create({
+    title,
+    description,
+    contactNumber,
+    category,
+    location,
+    createdBy,
+  });
   return helpline;
 };
 
@@ -26,8 +40,17 @@ const getHelplineById = async (id: string): Promise<THelpline | null> => {
 /**
  * Update a helpline/resource
  */
-const updateHelpline = async (id: string, title: string, description: string, location: object): Promise<THelpline | null> => {
-  return await HelplineModel.findByIdAndUpdate(id, { title, description, location, updatedAt: Date.now() }, { new: true });
+const updateHelpline = async (
+  id: string,
+  title: string,
+  description: string,
+  location: object
+): Promise<THelpline | null> => {
+  return await HelplineModel.findByIdAndUpdate(
+    id,
+    { title, description, location, updatedAt: Date.now() },
+    { new: true }
+  );
 };
 
 /**

@@ -16,6 +16,8 @@ export type THelpline = {
   _id: string;
   title: string;
   description: string;
+  contactNumber: number;
+  category: "Police" | "Hospital" | "NGO" | "Other";
   location: TLocation;
   createdBy: Types.ObjectId;
   createdAt: Date;
