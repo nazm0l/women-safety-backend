@@ -26,9 +26,9 @@ export const getAllPosts = catchAsync(async (_req: Request, res: Response) => {
 //Get post by user ID
 export const getPostsByUserId = catchAsync(
   async (req: Request, res: Response): Promise<any> => {
-    const userId = req.params.userId;
+    const id = req.params.id;
 
-    const posts = await CommunityService.getPostsByUserId(userId);
+    const posts = await CommunityService.getPostsByUserId(id as string);
     if (!posts || posts.length === 0) {
       return res.status(404).json({ message: "No posts found for this user" });
     }
@@ -69,5 +69,20 @@ export const updatePost = catchAsync(async (req, res) => {
     success: true,
     message: "Post updated successfully",
     data: updatedPost,
+  });
+});
+
+export const deletePost = catchAsync(async (req, res): Promise<void> => {
+  const postId = req.params.id;
+
+  const deletedPost = await CommunityService.deletePost(postId);
+
+  if (!deletedPost) {
+    res.status(404).json({ message: "Post not found" });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Post deleted successfully",
   });
 });

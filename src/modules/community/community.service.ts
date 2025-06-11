@@ -31,10 +31,15 @@ const updatePost = async (
   return await Post.findByIdAndUpdate(id, payload, { new: true });
 };
 
+const deletePost = async (id: string) => {
+  return await Post.findByIdAndDelete(id);
+};
+
 export const CommunityService = {
   createPost,
   getAllPosts,
   getPostsByUserId,
   getPostById,
   updatePost,
+  deletePost,
 };
