@@ -23,6 +23,24 @@ export const getAllPosts = catchAsync(async (_req: Request, res: Response) => {
   res.status(200).json(posts);
 });
 
+//Get post by user ID
+export const getPostsByUserId = catchAsync(
+  async (req: Request, res: Response): Promise<any> => {
+    const userId = req.params.userId;
+
+    const posts = await CommunityService.getPostsByUserId(userId);
+    if (!posts || posts.length === 0) {
+      return res.status(404).json({ message: "No posts found for this user" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Posts fetched successfully",
+      data: posts,
+    });
+  }
+);
+
 export const getPostById = catchAsync(
   async (req: Request, res: Response): Promise<any> => {
     const post = await CommunityService.getPostById(req.params.id);
