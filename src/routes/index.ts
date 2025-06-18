@@ -28,17 +28,16 @@ const moduleRoutes = [
   },
   {
     path: "/community",
-    route: CommunityRoutes
+    route: CommunityRoutes,
   },
   {
     path: "/comment",
-    route: CommentRoutes
+    route: CommentRoutes,
   },
   {
-    path:"/vote",
-    route:LikeRoutes
-
-  }
+    path: "/vote",
+    route: LikeRoutes,
+  },
 ];
 
 // Use each route in the application

@@ -1,7 +1,13 @@
 // auth.controller.ts
 import { Request, Response } from "express";
 import { v2 as cloudinary } from "cloudinary";
-import { registerUser, loginUser, updateUserDB } from "./auth.service";
+import {
+  registerUser,
+  loginUser,
+  updateUserDB,
+  getAllUsersFromDB,
+  getUserByIdFromDB,
+} from "./auth.service";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse, { sendResponseLogin } from "../../utils/sendResponse";
 import verifyFemale from "../../utils/verifyFemale";
@@ -110,3 +116,50 @@ export const updateUser = catchAsync(async (req: Request, res: Response) => {
     data: user,
   });
 });
+
+export const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+  const users = await getAllUsersFromDB();
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Users retrieved successfully",
+    data: users,
+  });
+});
+
+export const getUserById = catchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  const user = await getUserByIdFromDB(userId);
+  if (!user) {
+    return sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: "User not found",
+      data: null,
+    });
+  }
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "User retrieved successfully",
+    data: user,
+  });
+});
+
+export const forgotPassword = catchAsync(
+  async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    // Implement forgot password logic here
+    // For now, just returning a success message
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Forgot password functionality is not implemented yet",
+      data: null,
+    });
+  }
+);
