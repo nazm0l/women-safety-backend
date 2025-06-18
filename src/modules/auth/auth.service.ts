@@ -60,3 +60,28 @@ export const updateUserDB = async (
   await user.save();
   return user;
 };
+
+export const getAllUsersFromDB = async () => {
+  const users = await User.find({ isDeleted: false });
+  return users;
+};
+
+export const getUserByIdFromDB = async (userId: string) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+};
+
+// export const forgotPassword = async (email: string) => {
+//   const user = await User.findOne({ email });
+//   if (!user) {
+//     throw new Error("User not found");
+//   }
+
+//   // Update the user's password send a reset email
+//   const sendResetEmail = async (user: IUser) => {
+
+//   return user;
+// };
