@@ -12,13 +12,15 @@ const addReport = async (
   description: string,
   address: string,
   evidence: string,
-  createdBy: Types.ObjectId
+  createdBy: Types.ObjectId,
+  status: TReportChildMarriageStatus = "pending"
 ): Promise<TReportChildMarriage> => {
   const report = await ReportChildMarriageModel.create({
     description,
     address,
     evidence,
     createdBy,
+    status,
   });
   return report.toObject();
 };

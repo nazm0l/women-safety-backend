@@ -5,13 +5,14 @@ import { ReportChildMarriageService } from "./reportcm.service";
 
 // Create a new child marriage report
 const addReport = catchAsync(async (req, res) => {
-  const { description, address, evidence, createdBy } = req.body;
+  const { description, address, evidence, createdBy, status } = req.body;
 
   const report = await ReportChildMarriageService.addReport(
     description,
     address,
     evidence,
-    createdBy
+    createdBy,
+    status
   );
 
   sendResponse(res, {

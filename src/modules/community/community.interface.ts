@@ -7,14 +7,12 @@ export interface IComment {
   createdAt?: Date;
 }
 
-
 export interface IPost extends Document {
-    title: string;
-    content: string;
-    createdBy: Types.ObjectId;
-    comments: IComment[];
-    // likedBy: Types.ObjectId[];
-    createdAt: Date;
-    updatedAt: Date;
-  }
-  
+  title: string;
+  content: string;
+  createdBy: Types.ObjectId;
+  comments: IComment[];
+  likes: number;
+  createdAt: Date;
+  updatedAt: Date;
+}

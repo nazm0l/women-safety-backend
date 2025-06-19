@@ -13,7 +13,7 @@ const reportChildMarriageSchema: Schema<TReportChildMarriage> = new Schema(
       required: true,
     },
     evidence: {
-      type: String, // URL or file path
+      type: String,
       required: false,
     },
     status: {

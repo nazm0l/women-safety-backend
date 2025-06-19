@@ -15,6 +15,7 @@ const postSchema = new Schema<IPost>(
     content: { type: String, required: true },
     createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
     comments: [commentSchema],
+    likes: { type: Number, default: 0 },
     // likedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }
